@@ -1,7 +1,7 @@
 /* Start Variables */
 :root {
   --main-color: #19c8fa;
-  --transparent-color: rgb(15 116 143 / 70%);
+  --primary-color: rgb(15 116 143 /60%);
   --section-padding: 100px;
 }
 /* End Variables */
@@ -84,6 +84,7 @@ header nav {
 header nav ul {
   display: flex;
   position: relative;
+  transition: color 0.3s ease, border 0.3s ease;
 }
 
 header nav ul li a {
@@ -93,7 +94,7 @@ header nav ul li a {
   color: white;
   text-decoration: none;
   font-size: 14px;
-  transition: 0.3;
+  transition: color 0.3s ease, border 0.3s ease;
   position: relative;
   z-index: 3;
 }
@@ -102,19 +103,69 @@ header nav .toggle-menu {
   color: white;
   cursor: pointer;
 }
-/* ! toggle hide */
-@media (min-width: 768px) {
-  header nav .toggle-menu {
-    display: none;
-  }
+/* ! to show toggle */
+header nav ul.show {
+  display: flex;
+}
+header nav ul li a.active {
+  color: var(--main-color);
+  border-bottom: 1px solid var(--main-color);
+}
+header nav ul li a:hover {
+  color: #149bc0;
+  border-bottom: 1px solid #149bc0;
 }
 
-@media (max-width: 767px) {
+/* ! Search Box */
+header .search-box {
+  width: 200px;
+  height: 30px;
+  position: relative;
+  margin-left: 30px;
+}
+header .search-box i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  pointer-events: none;
+}
+.search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 35px 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+  transition: 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+/* ! media for heading */
+@media (max-width: 991px) {
+  header nav {
+    position: relative;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  header .search-box {
+    width: calc(100% - 75px);
+    position: absolute;
+    left: 0;
+  }
+
   header nav ul {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 100%;
+    top: calc(100% + 35px);
     left: 0;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
@@ -123,36 +174,103 @@ header nav .toggle-menu {
   header nav ul li a {
     padding: 15px !important;
   }
+
+  header nav .toggle-menu {
+    font-size: 24px;
+  }
 }
-header nav ul.show {
-  display: flex;
-}
-header nav ul li a.active,
-header nav ul li a:hover {
-  color: var(--main-color);
-  border-bottom: 1px solid var(--main-color);
-}
-header nav .form {
-  width: 40px;
-  height: 30px;
-  position: relative;
-  margin-left: 30px;
-  border-left: 1px solid white;
-}
-header nav .form i {
-  color: white;
-  padding: 8px;
+@media (min-width: 992px) {
+  header nav .toggle-menu {
+    display: none;
+  }
 }
 /* End Header */
 /* Start Landing */
 .landing {
   min-height: 100vh;
   background-color: #000;
-  background-image: url("../images/background.webp");
   background-size: cover;
   position: relative;
-  /* overflow: hidden; */
-  background-attachment: fixed;
-  /* background-position: center; */
+  background-position: center;
+  transition: background-image 1s ease-in-out; /* تأثير السلاسة */
+}
+.landing .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0 0 0 / 50%);
+}
+.landing .text {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 60%;
+  transform: translateY(-50%);
+  padding: 40px;
+  color: white;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.landing .text .content {
+  max-width: 500px;
+}
+
+@media (max-width: 991px) {
+  .landing .text {
+    width: 100%;
+  }
+  .landing .text .content {
+    max-width: 100%;
+    margin-left: 20px;
+  }
+}
+.landing .text .content h1 {
+  margin-top: 0;
+  font-weight: normal;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.landing .text .content p {
+  line-height: 2;
+  font-size: 14px;
+}
+.landing .change-background {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ddd;
+  cursor: pointer;
+}
+.landing .fa-angle-left {
+  left: 30px;
+}
+.landing .fa-angle-right {
+  right: 30px;
+}
+
+.landing .bullets {
+  position: absolute;
+  left: 50%;
+  transform: translateY(-50%);
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+.landing .bullets li {
+  width: 15px;
+  height: 15px;
+  border: solid 1px white;
+  border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.landing .bullets .active-bullet {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
 }
 /* End Landing */
