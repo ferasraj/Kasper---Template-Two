@@ -23,7 +23,7 @@ menuLinks.forEach((link) => {
   });
 });
 
-//!التأشيرات
+//!الهوفر ع ناف بار
 // إضافة كلاس active للرابط النشط
 const links = document.querySelectorAll("#menu li a");
 
@@ -31,6 +31,20 @@ links.forEach((link) => {
   link.addEventListener("click", function () {
     // Remove active from all
     links.forEach((el) => el.classList.remove("active"));
+
+    // Add active to clicked one
+    this.classList.add("active");
+  });
+});
+
+//!الهوفر ع ديزاين لنك
+// إضافة كلاس active للرابط النشط
+const linksDe = document.querySelectorAll("#design-content li a");
+
+linksDe.forEach((linkk) => {
+  linkk.addEventListener("click", function () {
+    // Remove active from all
+    linksDe.forEach((el) => el.classList.remove("active"));
 
     // Add active to clicked one
     this.classList.add("active");
@@ -105,6 +119,7 @@ setInterval(() => {
   updateBackground(currentIndex);
 }, 5000); // 5000 مللي ثانية = 5 ثواني
 
+//!touch-swipe
 // دعم السحب بالإصبع على الجوال
 let touchStartX = 0;
 let touchEndX = 0;
@@ -137,3 +152,24 @@ function handleSwipe() {
     updateBackground();
   }
 }
+
+//!scroll-to-top
+// إنشاء الزر
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+// إظهار الزر عند التمرير
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    scrollTopBtn.classList.add("show");
+  } else {
+    scrollTopBtn.classList.remove("show");
+  }
+});
+
+// عند الضغط يرجع لأعلى الصفحة
+scrollTopBtn.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+});
