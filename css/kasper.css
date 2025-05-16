@@ -447,6 +447,7 @@ header .search-box i {
   border-radius: 5px;
   background-color: var(--main-color);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
 
   color: white;
 }
@@ -457,6 +458,7 @@ header .search-box i {
 }
 
 .portfolio .portfolio-imgs {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   margin-top: 60px;
@@ -467,7 +469,6 @@ header .search-box i {
 .portfolio .portfolio-imgs .box {
   border-radius: 8px;
   overflow: hidden;
-  position: relative;
 }
 .portfolio .portfolio-imgs .box:hover .caption {
   bottom: 0;
@@ -490,7 +491,6 @@ header .search-box i {
   width: 400px;
   max-width: 100%;
   transition: 0.3s;
-  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
 .portfolio .portfolio-imgs .box .caption {
@@ -522,10 +522,39 @@ header .search-box i {
   border-radius: 4px;
   text-transform: uppercase;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
 }
 .portfolio .more:hover {
   background-color: #19c9fabc;
+  transform: scale(1.05);
 }
+.box {
+  opacity: 0;
+  display: none;
+  transform: scale(0.95);
+  transition: opacity 0.4s ease, transform 0.4s ease, max-height 0.4s ease;
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.box.show {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+  max-height: 1000px; /* رقم كبير لتغطية الصور */
+  pointer-events: auto;
+}
+.more.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.box.fade-out {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
 /* End Portfolio */
 /* Start video */
 .video {
@@ -667,6 +696,175 @@ header .search-box i {
   font-size: 14px;
 }
 /* End statics */
+
+/*  Start skills */
+.skills {
+  padding-top: var(--section-padding);
+  padding-bottom: var(--section-padding);
+}
+
+.skills .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 992px) {
+  .skills .container > div {
+    flex-basis: 45%;
+  }
+}
+.skills .container > div > h5 {
+  /* first heading (h5) from div*/
+  margin: 0 0 30px;
+  text-align: center;
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 20px;
+}
+.skills .container > div > p {
+  /* first heading (p) from div*/
+  text-align: center;
+  color: var(--paragraph-color);
+  line-height: 1.6;
+  margin-bottom: 50px;
+}
+.skills .testimonials .test-content {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.skills .testimonials .test-content img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-right: 50px;
+}
+
+@media (max-width: 767px) {
+  .skills .testimonials .test-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .skills .testimonials .test-content img {
+    margin: 0 auto 20px;
+  }
+}
+.skills .testimonials .test-content .text {
+  line-height: 1.6;
+  border-bottom: 1px solid #ccc;
+}
+.skills .testimonials .test-content .text p {
+  width: 100%; /* عرض ثابت أو حسب التصميم */
+  height: 75px;
+  /* white-space: wrap; يمنع الكسر للسطر الجديد */
+  overflow: hidden; /* يخفي النص الزائد */
+  /* text-overflow: ellipsis; يضيف الثلاث نقاط (...) عند النص الزائد */
+  /* 
+ display: -webkit-box;
+  -webkit-line-clamp: 2; /* عدد السطور 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+}
+.skills .testimonials .test-content .text span {
+  text-align: right;
+  font-size: 14px;
+  color: var(--paragraph-color);
+  display: block;
+  margin-bottom: 15px;
+}
+.skills .bullets-te {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+.skills .testimonials .bullets-te li {
+  width: 10px;
+  height: 10px;
+  border: solid 1px #aaa;
+  border-radius: 50%;
+  margin-right: 10px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+.skills .testimonials .bullets-te li.active-bullet1 {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+.skills .our-skills .skills-content {
+  margin-bottom: 40px;
+}
+.skills .our-skills .skills-content h4 {
+  margin-bottom: 15px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.skills .our-skills .skills-content .prog {
+  background-color: #dedadc;
+  height: 25px;
+  margin: 20px 0;
+}
+.skills .our-skills .skills-content .prog span {
+  display: block;
+  background-color: var(--main-color);
+  height: 100%;
+  position: relative;
+  width: 0; /* البداية صفر عشان نشوف الحركة */
+  transition: width 2s ease; /* مدة الحركة 2 ثانية */
+}
+.skills .our-skills .skills-content .prog span::before {
+  content: attr(data-progress);
+  position: absolute;
+  background-color: #000;
+  color: #fff;
+  top: -40px;
+  right: -10px;
+  width: 40px;
+  text-align: center;
+  padding: 4px 0;
+  border-radius: 3px;
+}
+.skills .our-skills .skills-content .prog span::after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+  border-width: 8px;
+  border-color: black transparent transparent;
+  top: -15px;
+  right: 1px;
+}
+/* End skills */
+
+/* start qoute */
+.qoute {
+  padding-top: var(--section-padding);
+  padding-bottom: var(--section-padding);
+  background-image: url(../images/bg.jpg);
+  background-size: cover;
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.qoute::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0 0 0 / 30%);
+}
+.qoute .container {
+  position: relative;
+}
+.qoute q {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+/* end qoute */
 
 /* Start scroll Top Btn */
 #scrollTopBtn {
