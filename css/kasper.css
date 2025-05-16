@@ -920,7 +920,7 @@ header .search-box i {
   font-weight: bold;
 }
 .pricing .pricing-content .plan .head span::before {
-  content: "$";
+  content: attr(data-price);
   font-size: 20px;
   position: relative;
   top: -30px;
@@ -1035,6 +1035,7 @@ header .search-box i {
   padding: 20px 20px 20px 60px;
   caret-color: var(--main-color);
   width: calc(100% - 130px);
+  color: white;
 }
 .subscribe form input[type="submit"] {
   width: 130px;
